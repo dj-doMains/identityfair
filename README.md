@@ -1,6 +1,9 @@
 IdentityFair
 ====================
 
+Introduction
+======
+
 **MobileApp:** I'm ready to hit the waterslide and get my funnel cake on!
 
 **WebApi:** Great! Where's your ticket?

@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using IdentityServer.Data;
 using IdentityServer.Models.Dummy;
+using IdentityServer.Models.Identity;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -27,9 +30,18 @@ namespace IdentityServer
             var connectionString = Configuration.GetConnectionString("Default");
             var migrationsAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
 
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(connectionString,
+                    sql => sql.MigrationsAssembly(migrationsAssembly)));
+
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
+
+
             services.AddIdentityServer()
                 .AddDeveloperSigningCredential()
-                .AddTestUsers(DummyData.TestUsers)
+                .AddAspNetIdentity<ApplicationUser>()
 
                 // this adds the config data from DB (clients, resources)
                 .AddConfigurationStore(options =>

@@ -61,14 +61,7 @@ namespace WebClient
                 o.Scope.Add("profile");
             });
 
-            services.AddMvc(o =>
-            {
-                var policy = new AuthorizationPolicyBuilder()
-                .RequireAuthenticatedUser()
-                .Build();
-
-                o.Filters.Add(new AuthorizeFilter(policy));
-            });
+            services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

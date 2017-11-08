@@ -11,7 +11,6 @@ namespace WebClient.Pages
     {
         public void OnGet()
         {
-
         }
     }
 }

@@ -33,7 +33,7 @@ namespace MobileClient
             }
             catch (Exception ex)
             {
-                AppCenterLog.Error("Error!", "Button of Doom was clicked");
+                AppCenterLog.Error("Error!", $"Button of Doom was clicked - Error:{ex.Message}");
             }
         }
     }

@@ -38,6 +38,15 @@ namespace IdentityServer
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
+                options.LoginPath = "/Account/Login";
+                options.LogoutPath = "/Account/Logout";
+                options.AccessDeniedPath = "/Account/Login";
+                options.SlidingExpiration = true;
+            });
+
             services.AddIdentityServer()
                 .AddDeveloperSigningCredential()
                 .AddAspNetIdentity<ApplicationUser>()

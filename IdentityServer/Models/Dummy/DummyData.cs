@@ -17,53 +17,39 @@ namespace IdentityServer.Models.Dummy
         {
             new Client
             {
-                ClientId = "client",
+                ClientId = "2b11357c-668a-4627-b956-c9ad1365c8b3",
+                ClientName = "WebClient",
 
-                // no interactive user, use the clientid/secret for authentication
-                AllowedGrantTypes = GrantTypes.ClientCredentials,
+                FrontChannelLogoutUri = "http://localhost.5002/signout-oidc",
 
+                RedirectUris = new List<string>()
+                {
+                    "http://localhost:5002/signin-oidc"
+                },
+
+                PostLogoutRedirectUris = new List<string>()
+                {
+                     "http://localhost:5002/signout-callback-oidc"
+                },
+
+                AllowedGrantTypes = GrantTypes.Hybrid,
+                    
                 // secret for authentication
                 ClientSecrets =
                 {
-                    new Secret("secret".Sha256())
+                    new Secret("bbda4042-7d7a-4e41-9d8e-27c3ab4a8260".Sha256())
                 },
 
                 // scopes that client has access to
-                AllowedScopes = { "webapi" }
+                AllowedScopes = { "webapi", "openid", "profile" },
+
+                RequireConsent = false
             }
         };
 
         public static IEnumerable<ApiResource> ApiResources => new List<ApiResource>
         {
             new ApiResource("webapi", "WebApi")
-        };
-
-        public static List<TestUser> TestUsers => new List<TestUser>
-        {
-            new TestUser
-            {
-                SubjectId = "1",
-                Username = "alice",
-                Password = "password",
-
-                Claims = new List<Claim>
-                {
-                    new Claim("name", "Alice"),
-                    new Claim("website", "https://alice.com")
-                }
-            },
-            new TestUser
-            {
-                SubjectId = "2",
-                Username = "bob",
-                Password = "password",
-
-                Claims = new List<Claim>
-                {
-                    new Claim("name", "Bob"),
-                    new Claim("website", "https://bob.com")
-                }
-            }
         };
 
         public static IEnumerable<IdentityResource> IdentityResources => new List<IdentityResource>

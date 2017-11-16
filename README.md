@@ -1,6 +1,8 @@
 IdentityFair
 ====================
 
+[![Build status](https://build.appcenter.ms/v0.1/apps/52409ce6-63e2-4e94-86a6-7cb644cb2e69/branches/master/badge)](https://appcenter.ms)
+
 Introduction
 ======
 

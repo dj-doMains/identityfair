@@ -25,7 +25,7 @@ namespace MobileClient
             // Release any cached data, images, etc that aren't in use.
         }
 
-        partial void UIButton219_TouchUpInside(UIButton sender)
+        partial void ButtonOfDoom_TouchUpInside(UIButton sender)
         {
             try
             {

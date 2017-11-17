@@ -13,12 +13,20 @@ namespace MobileClient
     [Register ("FirstViewController")]
     partial class FirstViewController
     {
-        [Action ("UIButton219_TouchUpInside:")]
+        [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        partial void UIButton219_TouchUpInside (UIKit.UIButton sender);
+        UIKit.UIButton ButtonOfDoom { get; set; }
+
+        [Action ("ButtonOfDoom_TouchUpInside:")]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        partial void ButtonOfDoom_TouchUpInside (UIKit.UIButton sender);
 
         void ReleaseDesignerOutlets ()
         {
+            if (ButtonOfDoom != null) {
+                ButtonOfDoom.Dispose ();
+                ButtonOfDoom = null;
+            }
         }
     }
 }

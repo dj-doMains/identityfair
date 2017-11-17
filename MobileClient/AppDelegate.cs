@@ -4,6 +4,7 @@ using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
 using Microsoft.AppCenter.Distribute;
+using Microsoft.AppCenter.Push;
 
 namespace MobileClient
 {
@@ -25,7 +26,7 @@ namespace MobileClient
             // Override point for customization after application launch.
             // If not required for your application you can safely delete this method
             AppCenter.Start("2e6b8e2c-c0c5-41da-a18b-5775ac019aa1",
-                   typeof(Analytics), typeof(Crashes), typeof(Distribute));
+                typeof(Analytics), typeof(Crashes), typeof(Distribute), typeof(Push));
 
             return true;
         }

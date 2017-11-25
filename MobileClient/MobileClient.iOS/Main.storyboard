@@ -63,7 +63,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="754" y="-401"/>
+            <point key="canvasLocation" x="548" y="-103"/>
         </scene>
         <!--Second-->
         <scene sceneID="wg7-f3-ORb">
@@ -109,6 +109,15 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="4837" translatesAutoresizingMaskIntoConstraints="NO">
+                                <rect key="frame" x="138" y="424" width="81" height="30"/>
+                                <state key="normal" title="Logout">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="LogoutButton_TouchUpInside:" destination="8rJ-Kc-sve" id="4838" eventType="touchUpInside"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -125,6 +134,9 @@
                             <constraint id="4268" firstItem="4257" firstAttribute="top" secondItem="4255" secondAttribute="bottom" constant="40"/>
                             <constraint id="4269" firstItem="4255" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leadingMargin" constant="140"/>
                             <constraint id="4270" firstItem="QS5-Rx-YEW" firstAttribute="trailingMargin" secondItem="4255" secondAttribute="trailing" constant="157"/>
+                            <constraint id="5095" firstItem="4837" firstAttribute="top" secondItem="NDk-cv-Gan" secondAttribute="bottom" constant="44"/>
+                            <constraint id="5096" firstItem="4837" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leadingMargin" constant="122"/>
+                            <constraint id="5097" firstItem="QS5-Rx-YEW" firstAttribute="trailingMargin" secondItem="4837" secondAttribute="trailing" constant="140"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Second" image="Second" id="cPa-gy-q4n"/>
@@ -132,16 +144,17 @@
                         <outlet property="LoginButton" destination="4255" id="name-outlet-4255"/>
                         <outlet property="CallApiButton" destination="4257" id="name-outlet-4257"/>
                         <outlet property="OutputText" destination="4258" id="name-outlet-4258"/>
+                        <outlet property="LogoutButton" destination="4837" id="name-outlet-4837"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="750" y="360"/>
+            <point key="canvasLocation" x="563" y="703"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
             <objects>
-                <tabBarController id="49e-Tb-3d3" sceneMemberID="viewController">
+                <tabBarController id="49e-Tb-3d3" sceneMemberID="viewController" storyboardIdentifier="MainTabBarController">
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="W28-zg-YXA">
                         <rect key="frame" x="0.0" y="618" width="375" height="49"/>
@@ -156,6 +169,61 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="0.0" y="0.0"/>
+        </scene>
+        <scene sceneID="4744">
+            <objects>
+                <viewController id="4745" sceneMemberID="viewController" storyboardIdentifier="LoginPageViewController" customClass="LoginPageViewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="4742"/>
+                        <viewControllerLayoutGuide type="bottom" id="4743"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="4746">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="4776" translatesAutoresizingMaskIntoConstraints="NO" placeholder="Username">
+                                <rect key="frame" x="48" y="210" width="282" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="4777" translatesAutoresizingMaskIntoConstraints="NO" placeholder="Password">
+                                <rect key="frame" x="48" y="260" width="282" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="4778" translatesAutoresizingMaskIntoConstraints="NO">
+                                <rect key="frame" x="164" y="318" width="46" height="30"/>
+                                <state key="normal" title="Login">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleColor" colorSpace="calibratedWhite" white="1" alpha="1"/>
+                                </state>
+                                <connections>
+                                    <action selector="LoginButton_TouchUpInside:" destination="4745" id="4836" eventType="touchUpInside"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <constraints>
+                            <constraint id="5098" firstItem="4776" firstAttribute="leading" secondItem="4746" secondAttribute="leadingMargin" constant="32"/>
+                            <constraint id="5099" firstItem="4746" firstAttribute="trailingMargin" secondItem="4776" secondAttribute="trailing" constant="29"/>
+                            <constraint id="5100" firstItem="4776" firstAttribute="top" secondItem="4742" secondAttribute="bottom" constant="190"/>
+                            <constraint id="5101" firstItem="4777" firstAttribute="top" secondItem="4776" secondAttribute="bottom" constant="20"/>
+                            <constraint id="5102" firstItem="4777" firstAttribute="leading" secondItem="4746" secondAttribute="leadingMargin" constant="32"/>
+                            <constraint id="5103" firstItem="4746" firstAttribute="trailingMargin" secondItem="4777" secondAttribute="trailing" constant="29"/>
+                            <constraint id="5104" firstItem="4778" firstAttribute="top" secondItem="4777" secondAttribute="bottom" constant="28"/>
+                            <constraint id="5105" firstItem="4778" firstAttribute="leading" secondItem="4746" secondAttribute="leadingMargin" constant="148"/>
+                            <constraint id="5106" firstItem="4746" firstAttribute="trailingMargin" secondItem="4778" secondAttribute="trailing" constant="149"/>
+                        </constraints>
+                        <color key="backgroundColor" colorSpace="calibratedRGB" red="0.058823529411764705" green="0.49803921568627452" blue="0.996078431372549" alpha="1"/>
+                    </view>
+                    <connections>
+                        <outlet property="UserNameTextField" destination="4776" id="name-outlet-4776"/>
+                        <outlet property="PasswordTextField" destination="4777" id="name-outlet-4777"/>
+                        <outlet property="LoginButton" destination="4778" id="name-outlet-4778"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4747" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="11" y="767"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

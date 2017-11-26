@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using IdentityServer.Data;
 using IdentityServer4.EntityFramework.DbContexts;
 using IdentityServer4.EntityFramework.Mappers;
 using IdentityServer4.Models;
@@ -44,6 +45,24 @@ namespace IdentityServer.Models.Dummy
                 AllowedScopes = { "webapi", "openid", "profile" },
 
                 RequireConsent = false
+            },
+            new Client
+            {
+                ClientId = "494d4635-e87d-4c1f-9f49-b539373f5af6",
+                ClientName = "MobileClient",
+
+                AccessTokenLifetime = 144000, // 4 hours
+
+                AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
+                AllowedScopes = { "webapi" },
+                AllowOfflineAccess = true,
+
+                ClientSecrets =
+                {
+                    new Secret("28a0a69a-0711-479c-97b3-26c24c47c3b2".Sha256())
+                },
+
+                RequireConsent = false
             }
         };
 
@@ -58,39 +77,49 @@ namespace IdentityServer.Models.Dummy
             new IdentityResources.Profile(),
         };
 
-        public static void InitializeDatabase(IApplicationBuilder app)
+        public static void InitializeDatabase(IApplicationBuilder app, bool forceRefresh = false)
         {
             using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
-                serviceScope.ServiceProvider.GetRequiredService<PersistedGrantDbContext>().Database.Migrate();
+                var configContext = serviceScope.ServiceProvider.GetRequiredService<ConfigurationDbContext>();
 
-                var context = serviceScope.ServiceProvider.GetRequiredService<ConfigurationDbContext>();
-                context.Database.Migrate();
-                if (!context.Clients.Any())
+                if (forceRefresh)
+                {
+                    var pgContext = serviceScope.ServiceProvider.GetRequiredService<PersistedGrantDbContext>();
+                    var appContext = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+
+                    appContext.Database.EnsureDeleted();
+                    appContext.Database.EnsureCreated();
+
+                    configContext.Database.Migrate();
+                    pgContext.Database.Migrate();
+                }
+
+                if (!configContext.Clients.Any())
                 {
                     foreach (var client in Clients)
                     {
-                        context.Clients.Add(client.ToEntity());
+                        configContext.Clients.Add(client.ToEntity());
                     }
-                    context.SaveChanges();
+                    configContext.SaveChanges();
                 }
 
-                if (!context.IdentityResources.Any())
+                if (!configContext.IdentityResources.Any())
                 {
                     foreach (var resource in IdentityResources)
                     {
-                        context.IdentityResources.Add(resource.ToEntity());
+                        configContext.IdentityResources.Add(resource.ToEntity());
                     }
-                    context.SaveChanges();
+                    configContext.SaveChanges();
                 }
 
-                if (!context.ApiResources.Any())
+                if (!configContext.ApiResources.Any())
                 {
                     foreach (var resource in ApiResources)
                     {
-                        context.ApiResources.Add(resource.ToEntity());
+                        configContext.ApiResources.Add(resource.ToEntity());
                     }
-                    context.SaveChanges();
+                    configContext.SaveChanges();
                 }
             }
         }

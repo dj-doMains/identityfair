@@ -62,7 +62,8 @@ namespace IdentityServer.Models.Dummy
                     new Secret("28a0a69a-0711-479c-97b3-26c24c47c3b2".Sha256())
                 },
 
-                RequireConsent = false
+                RequireConsent = false,
+                RequireClientSecret = false
             }
         };
 

@@ -13,6 +13,7 @@ using IdentityServer.Data;
 using IdentityServer.Services;
 using System.Reflection;
 using IdentityServer.Models.Dummy;
+using IdentityServer.Models;
 
 namespace IdentityServer
 {
@@ -77,6 +78,7 @@ namespace IdentityServer
             // Register no-op EmailSender used by account confirmation and password reset during development
             // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=532713
             services.AddSingleton<IEmailSender, EmailSender>();
+            services.AddMultitenancy<Tenant, TenantResolver>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -94,6 +96,7 @@ namespace IdentityServer
                 app.UseExceptionHandler("/Error");
             }
 
+            app.UseMultitenancy<Tenant>();
             app.UseStaticFiles();
 
             app.UseAuthentication();

@@ -17,8 +17,15 @@ namespace IdentityServer
             BuildWebHost(args).Run();
         }
 
+        private static IConfiguration GetConfiguration() =>
+            new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("hosting.json", optional: true)
+                .Build();
+
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                .UseConfiguration(GetConfiguration())
                 .UseStartup<Startup>()
                 .Build();
     }

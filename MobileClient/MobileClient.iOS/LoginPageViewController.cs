@@ -1,30 +1,28 @@
 using Foundation;
 using System;
 using UIKit;
+using MobileClient.Shared.Identity;
+using Xamarin.Auth;
+using MobileClient.Models.Identity;
 
 namespace MobileClient
 {
     public partial class LoginPageViewController : UIViewController
     {
-        //Create an event when a authentication is successful
-        public event EventHandler OnLoginSuccess;
-
         public LoginPageViewController(IntPtr handle) : base(handle)
         {
         }
 
         partial void LoginButton_TouchUpInside(UIButton sender)
         {
-            //Validate our Username & Password.
-            //This is usually a web service call.
-            if (IsUserNameValid() && IsPasswordValid())
+            bool isValidUser = ValidateUser(UserNameTextField.Text, PasswordTextField.Text);
+
+            if (isValidUser)
             {
-                //We have successfully authenticated a the user,
-                //Now fire our OnLoginSuccess Event.
-                if (OnLoginSuccess != null)
-                {
-                    OnLoginSuccess(sender, new EventArgs());
-                }
+                var appDelegate = UIApplication.SharedApplication.Delegate as AppDelegate;
+
+                var tabBarController = appDelegate.GetViewController(appDelegate.MainStoryboard, "MainTabBarController");
+                appDelegate.SetRootViewController(tabBarController, true);
             }
             else
             {
@@ -33,14 +31,37 @@ namespace MobileClient
             }
         }
 
-        private bool IsUserNameValid()
+        private bool ValidateUser(string username, string password)
         {
-            return !String.IsNullOrEmpty(UserNameTextField.Text.Trim());
-        }
+            IdentityManager identityManager = new IdentityManager(IdentityHelper.CreateIdentityManagerSettings());
+            var token = identityManager.SignIn(username, password);
 
-        private bool IsPasswordValid()
-        {
-            return !String.IsNullOrEmpty(PasswordTextField.Text.Trim());
+            if (!string.IsNullOrEmpty(token?.AccessToken?.Trim()))
+            {
+                // temporary solution until I can get Accounts working
+                NSUserDefaults.StandardUserDefaults.SetString(username, "Username");
+                NSUserDefaults.StandardUserDefaults.SetString(token.AccessToken, "AccessToken");
+                NSUserDefaults.StandardUserDefaults.SetString(token.TokenType, "TokenType");
+                NSUserDefaults.StandardUserDefaults.SetString(token.RefreshToken, "RefreshToken");
+                NSUserDefaults.StandardUserDefaults.SetString(token.ExpiresIn.ToString(), "ExpiresIn");
+                NSUserDefaults.StandardUserDefaults.SetString(token.AccessToken, "ExpirationDate");
+
+                NSUserDefaults.StandardUserDefaults.Synchronize();
+
+                //Account account = new Account(username);
+
+                //account.Properties.Add("AccessToken", token.AccessToken);
+                //account.Properties.Add("TokenType", token.TokenType);
+                //account.Properties.Add("RefreshToken", token.RefreshToken);
+                //account.Properties.Add("ExpiresIn", token.ExpiresIn.ToString());
+                //account.Properties.Add("ExpirationDate", token.ExpirationDate.ToString());
+
+                //AccountStore.Create().Save(account, "MobileClient_Security");
+
+                return true;
+            }
+
+            return false;
         }
     }
 }

@@ -5,6 +5,7 @@ using System.Net.Http;
 using Newtonsoft.Json.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Foundation;
 
 namespace MobileClient
 {
@@ -49,11 +50,13 @@ namespace MobileClient
 
             var loginPageViewController = appDelegate.GetViewController(mainStoryboard, "LoginPageViewController") as LoginPageViewController;
 
-            loginPageViewController.OnLoginSuccess += (s, e) =>
-            {
-                var tabBarController = appDelegate.GetViewController(mainStoryboard, "MainTabBarController");
-                appDelegate.SetRootViewController(tabBarController, true);
-            };
+            // purge account
+            NSUserDefaults.StandardUserDefaults.SetString("", "Username");
+            NSUserDefaults.StandardUserDefaults.SetString("", "AccessToken");
+            NSUserDefaults.StandardUserDefaults.SetString("", "TokenType");
+            NSUserDefaults.StandardUserDefaults.SetString("", "RefreshToken");
+            NSUserDefaults.StandardUserDefaults.SetString("", "ExpiresIn");
+            NSUserDefaults.StandardUserDefaults.SetString("", "ExpirationDate");
 
             appDelegate.SetRootViewController(loginPageViewController, true);
         }

@@ -60,7 +60,7 @@ namespace MobileClient
             else
             {
                 var loginViewController = GetViewController(MainStoryboard, "LoginPageViewController") as LoginPageViewController;
-                loginViewController.OnLoginSuccess += LoginViewController_OnLoginSuccess;
+                //loginViewController.OnLoginSuccess += LoginViewController_OnLoginSuccess;
                 SetRootViewController(loginViewController, false);
             }
 
@@ -96,12 +96,6 @@ namespace MobileClient
         public override void WillTerminate(UIApplication application)
         {
             // Called when the application is about to terminate. Save data, if needed. See also DidEnterBackground.
-        }
-
-        void LoginViewController_OnLoginSuccess(object sender, EventArgs e)
-        {
-            var tabBarController = GetViewController(MainStoryboard, "MainTabBarController");
-            SetRootViewController(tabBarController, true);
         }
     }
 }

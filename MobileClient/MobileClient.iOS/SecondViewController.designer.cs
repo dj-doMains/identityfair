@@ -23,7 +23,15 @@ namespace MobileClient
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UIButton LogoutButton { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UILabel OutputText { get; set; }
+
+        [Action ("LogoutButton_TouchUpInside:")]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        partial void LogoutButton_TouchUpInside (UIKit.UIButton sender);
 
         void ReleaseDesignerOutlets ()
         {
@@ -35,6 +43,11 @@ namespace MobileClient
             if (LoginButton != null) {
                 LoginButton.Dispose ();
                 LoginButton = null;
+            }
+
+            if (LogoutButton != null) {
+                LogoutButton.Dispose ();
+                LogoutButton = null;
             }
 
             if (OutputText != null) {

@@ -3,6 +3,7 @@ using UIKit;
 using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
+using System;
 
 namespace MobileClient
 {
@@ -12,11 +13,36 @@ namespace MobileClient
     public class AppDelegate : UIApplicationDelegate
     {
         // class-level declarations
+        private bool isAuthenticated = false;
 
         public override UIWindow Window
         {
             get;
             set;
+        }
+
+        public UIStoryboard MainStoryboard => UIStoryboard.FromName("Main", NSBundle.MainBundle);
+
+        public UIViewController GetViewController(UIStoryboard storyboard, string viewControllerName)
+        {
+            return storyboard.InstantiateViewController(viewControllerName);
+        }
+
+        public void SetRootViewController(UIViewController rootViewController, bool animate)
+        {
+            if (animate)
+            {
+                var transitionType = UIViewAnimationOptions.TransitionFlipFromRight;
+
+                Window.RootViewController = rootViewController;
+                UIView.Transition(Window, 0.5, transitionType,
+                                  () => Window.RootViewController = rootViewController,
+                                  null);
+            }
+            else
+            {
+                Window.RootViewController = rootViewController;
+            }
         }
 
         public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
@@ -25,6 +51,18 @@ namespace MobileClient
             // If not required for your application you can safely delete this method
             AppCenter.Start("2e6b8e2c-c0c5-41da-a18b-5775ac019aa1",
                 typeof(Analytics), typeof(Crashes));
+
+            if (isAuthenticated)
+            {
+                var tabBarController = GetViewController(MainStoryboard, "MainTabBarController");
+                SetRootViewController(tabBarController, false);
+            }
+            else
+            {
+                var loginViewController = GetViewController(MainStoryboard, "LoginPageViewController") as LoginPageViewController;
+                //loginViewController.OnLoginSuccess += LoginViewController_OnLoginSuccess;
+                SetRootViewController(loginViewController, false);
+            }
 
             return true;
         }

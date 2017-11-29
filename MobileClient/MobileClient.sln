@@ -1,7 +1,9 @@
 
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobileClient", "MobileClient.csproj", "{FB1C6341-EC48-483D-BF26-606B98E9835B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobileClient.iOS", "MobileClient.iOS\MobileClient.iOS.csproj", "{FB1C6341-EC48-483D-BF26-606B98E9835B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobileClient.Shared", "MobileClient.Shared\MobileClient.Shared.csproj", "{2BA39B75-9AE9-47C6-8D1D-0DA10D14E424}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,5 +21,13 @@ Global
 		{FB1C6341-EC48-483D-BF26-606B98E9835B}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
 		{FB1C6341-EC48-483D-BF26-606B98E9835B}.Debug|iPhone.ActiveCfg = Debug|iPhone
 		{FB1C6341-EC48-483D-BF26-606B98E9835B}.Debug|iPhone.Build.0 = Debug|iPhone
+		{2BA39B75-9AE9-47C6-8D1D-0DA10D14E424}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{2BA39B75-9AE9-47C6-8D1D-0DA10D14E424}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{2BA39B75-9AE9-47C6-8D1D-0DA10D14E424}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{2BA39B75-9AE9-47C6-8D1D-0DA10D14E424}.Release|iPhone.Build.0 = Release|Any CPU
+		{2BA39B75-9AE9-47C6-8D1D-0DA10D14E424}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{2BA39B75-9AE9-47C6-8D1D-0DA10D14E424}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{2BA39B75-9AE9-47C6-8D1D-0DA10D14E424}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{2BA39B75-9AE9-47C6-8D1D-0DA10D14E424}.Debug|iPhone.Build.0 = Debug|Any CPU
 	EndGlobalSection
 EndGlobal
